@@ -31,6 +31,10 @@ class _NewProfileState extends State<NewProfile> {
     return Scaffold(
       appBar: AppBar(
         title:Text('New Profile'),
+        leading:IconButton(
+          icon:Icon(Icons.arrow_back,),
+          onPressed: null
+          )
       ),     
       body: Expanded(
         child:ListView(
