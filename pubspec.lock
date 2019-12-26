@@ -81,6 +81,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "8.5.0"
+<<<<<<< HEAD
+=======
   gender_selector:
     dependency: "direct main"
     description:
@@ -88,6 +90,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.6"
+>>>>>>> 4c951a2a305ca8c400797a59f8b3cc94b2dd75c0
   image:
     dependency: transitive
     description:
