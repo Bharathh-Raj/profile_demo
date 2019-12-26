@@ -4,6 +4,7 @@ class Profile{
   String numb;
   dynamic propic;
   int age;
+  DateTime birth;
   bool gender;
   String city;
 
@@ -14,6 +15,7 @@ class Profile{
     this.numb,
     this.propic,
     this.age,
+    this.birth,
     this.gender,
     this.city
     });
