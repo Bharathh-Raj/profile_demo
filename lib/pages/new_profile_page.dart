@@ -27,6 +27,14 @@ class _NewProfileState extends State<NewProfile> {
 
   String selectedGender="male";
 
+  final FocusNode _nameFocus = FocusNode();  
+  final FocusNode _descFocus = FocusNode();  
+  final FocusNode _numFocus = FocusNode();  
+  final FocusNode _ageFocus = FocusNode();  
+  final FocusNode _cityFocus = FocusNode();  
+  final FocusNode _dobFocus = FocusNode();  
+  // final FocusNode _ageFocus = FocusNode();  
+
   // final focus = FocusNode();
 
   @override
@@ -47,18 +55,18 @@ class _NewProfileState extends State<NewProfile> {
         width:double.infinity,
         // child:SingleChildScrollView(
             child: ListView(
-              
+
               children: <Widget>[
                 Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  rowContainer('Name:', 'Enter your name', namecontroller),
-                  rowContainer('Description:', 'Description here', desccontroller),
-                  rowContainer('Mobile Num:', 'Enter your mobile number', numcontroller,TextInputType.number),
-                  rowContainer('Age:', 'Enter your age', agecontroller,TextInputType.number),
-                  datepick(),
-                  genselector(),
-                  rowContainer('City:', 'Enter your city', citycontroller),
+                  rowContainer('Name:', 'Enter your name', namecontroller,_nameFocus,_descFocus),
+                  rowContainer('Description:', 'Description here', desccontroller,_descFocus,_numFocus),
+                  rowContainer('Mobile Num:', 'Enter your mobile number', numcontroller,_numFocus,_ageFocus,TextInputType.number),
+                  rowContainer('Age:', 'Enter your age', agecontroller,_ageFocus,_cityFocus,TextInputType.number),
+                  rowContainer('City:', 'Enter your city', citycontroller,_cityFocus,_cityFocus),
+                  datepick(_dobFocus),
+                  genselector(),  
                   conformbutton()
                 ],
           ),
@@ -68,6 +76,11 @@ class _NewProfileState extends State<NewProfile> {
       ),
     );
   }
+
+  _fieldFocusChange(BuildContext context, FocusNode currentFocus,FocusNode nextFocus) {
+    currentFocus.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);  
+}
 
   Center conformbutton(){
     return Center(
@@ -98,7 +111,23 @@ class _NewProfileState extends State<NewProfile> {
         );
   }
 
-  Widget datepick(){
+  // ENABLE THIS TO SHOW THE CALENDER
+
+  // Future<Null> _selectDate(BuildContext context) async {
+  //   final DateTime picked = await showDatePicker(
+  //       context: context,
+  //       initialDate: selectedDate,
+  //       firstDate: DateTime(1900),
+  //       lastDate: DateTime(2020));
+  //   if (picked != null && picked != selectedDate)
+  //     setState(() {
+  //       selectedDate = picked;
+  //       print(selectedDate);
+  //     });
+  // }
+
+  Widget datepick(FocusNode current){
+    
     return Container(
       child:Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -111,8 +140,16 @@ class _NewProfileState extends State<NewProfile> {
           ),
           Container(
             width:MediaQuery.of(context).size.width*(1.8/3),
-            child: TextField(
-              onTap: () => _selectDate(context),
+            child: TextFormField(
+              keyboardType: TextInputType.datetime,
+              focusNode: current,
+
+              //ENABLE THIS TO SHOW THE CALENDER
+
+              // onTap: () { 
+              //   _selectDate(context);
+              //   current.unfocus();
+              // },
               decoration: InputDecoration(
                 hintText: selectedDate.year.toString()+"-"+selectedDate.month.toString()+"-"+selectedDate.day.toString()
               ),
@@ -123,20 +160,9 @@ class _NewProfileState extends State<NewProfile> {
     );
   }
 
-  Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(1900),
-        lastDate: DateTime(2020));
-    if (picked != null && picked != selectedDate)
-      setState(() {
-        selectedDate = picked;
-        print(selectedDate);
-      });
-  }
+  
 
-  Container rowContainer(String name,String hint,TextEditingController cont,[TextInputType type=TextInputType.text]){
+  Container rowContainer(String name,String hint,TextEditingController cont,FocusNode current,FocusNode next,[TextInputType type=TextInputType.text]){
     return Container(
               child:Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -147,9 +173,15 @@ class _NewProfileState extends State<NewProfile> {
                     ),
                   Container(
                     width:MediaQuery.of(context).size.width*(1.8/3),
-                    child: TextField(
+                    child: TextFormField(
                       controller: cont,
-                      onSubmitted: null,
+                      textInputAction: TextInputAction.next,
+                      onFieldSubmitted: (term){
+          _fieldFocusChange(context, current, next);
+          if(current==next)current.unfocus();
+        },
+                      // onSubmitted: null,
+                      focusNode: current,
                       decoration: InputDecoration(
                         hintText: hint
                       ),
