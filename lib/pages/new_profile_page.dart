@@ -27,10 +27,13 @@ class _NewProfileState extends State<NewProfile> {
 
   String selectedGender="male";
 
-  final focus = FocusNode();
+  // final focus = FocusNode();
 
   @override
   Widget build(BuildContext context) {
+
+    final MediaQueryData mq=MediaQuery.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title:Text('New Profile'),
@@ -42,18 +45,26 @@ class _NewProfileState extends State<NewProfile> {
       body: Container(
         height: double.infinity,
         width:double.infinity,
-        child:ListView(
-          children: <Widget>[
-            rowContainer('Name:', 'Enter your name', namecontroller),
-            rowContainer('Description:', 'Description here', desccontroller),
-            rowContainer('Mobile Num:', 'Enter your mobile number', numcontroller,TextInputType.number),
-            rowContainer('Age:', 'Enter your age', agecontroller,TextInputType.number),
-            datepick(),
-            genselector(),
-            rowContainer('City:', 'Enter your city', citycontroller),
-            conformbutton()
-          ],
-        )
+        // child:SingleChildScrollView(
+            child: ListView(
+              
+              children: <Widget>[
+                Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  rowContainer('Name:', 'Enter your name', namecontroller),
+                  rowContainer('Description:', 'Description here', desccontroller),
+                  rowContainer('Mobile Num:', 'Enter your mobile number', numcontroller,TextInputType.number),
+                  rowContainer('Age:', 'Enter your age', agecontroller,TextInputType.number),
+                  datepick(),
+                  genselector(),
+                  rowContainer('City:', 'Enter your city', citycontroller),
+                  conformbutton()
+                ],
+          ),
+              ],
+            ),
+        // )
       ),
     );
   }
@@ -93,13 +104,13 @@ class _NewProfileState extends State<NewProfile> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Container(
-            width:100.0,
+            width:MediaQuery.of(context).size.width*(0.8/3),
             child:Text(
               'Date of Birth:'
             ),
           ),
           Container(
-            width:250,
+            width:MediaQuery.of(context).size.width*(1.8/3),
             child: TextField(
               onTap: () => _selectDate(context),
               decoration: InputDecoration(
@@ -116,8 +127,6 @@ class _NewProfileState extends State<NewProfile> {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
-        // firstDate: DateTime(1950),
-        // lastDate: DateTime(DateTime.now().year));
         firstDate: DateTime(1900),
         lastDate: DateTime(2020));
     if (picked != null && picked != selectedDate)
@@ -133,11 +142,11 @@ class _NewProfileState extends State<NewProfile> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Container(
-                    width: 100.0,
+                    width: MediaQuery.of(context).size.width*(0.8/3),
                     child: Text(name)
                     ),
                   Container(
-                    width:250,
+                    width:MediaQuery.of(context).size.width*(1.8/3),
                     child: TextField(
                       controller: cont,
                       onSubmitted: null,
