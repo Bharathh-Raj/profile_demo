@@ -147,7 +147,8 @@ class _NewProfileState extends State<NewProfile> {
           child: TextFormField(
             keyboardType: TextInputType.datetime,
             focusNode: current,
-            //ENABLE THIS TO SHOW THE CALENDER
+
+            //*ENABLE THIS TO SHOW THE CALENDER(Step 1)
 
             // onTap: () {
             //   _selectDate(context);
@@ -191,7 +192,7 @@ class _NewProfileState extends State<NewProfile> {
     ));
   }
 
-  // ENABLE THIS TO SHOW THE CALENDER
+  //* ENABLE THIS TO SHOW THE CALENDER(Step 2)
 
   // Future<Null> _selectDate(BuildContext context) async {
   //   final DateTime picked = await showDatePicker(
