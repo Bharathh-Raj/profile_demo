@@ -60,6 +60,7 @@ class _NewProfileState extends State<NewProfile> {
                 Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
+                  _propicture(),
                   rowContainer('Name:', 'Enter your name', namecontroller,_nameFocus,_descFocus),
                   rowContainer('Description:', 'Description here', desccontroller,_descFocus,_numFocus),
                   rowContainer('Mobile Num:', 'Enter your mobile number', numcontroller,_numFocus,_ageFocus,TextInputType.number),
@@ -77,10 +78,41 @@ class _NewProfileState extends State<NewProfile> {
     );
   }
 
+  Widget _propicture(){
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(top:13.0),
+        child: Container(
+          width: MediaQuery.of(context).size.shortestSide*0.3,
+          child:Stack(
+              children:<Widget>[ 
+                CircleAvatar(
+                  radius: MediaQuery.of(context).size.shortestSide*0.15,
+                  child: Text('Picture Here'),
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.shortestSide*0.3,
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child:GestureDetector(
+                      child: CircleAvatar(
+                        child: Icon(Icons.camera_alt),
+                      ),
+                      onTap: (){},
+                    )
+                  ),
+                )
+            ]
+          )
+        ),
+      ),
+    );
+  }
+
   _fieldFocusChange(BuildContext context, FocusNode currentFocus,FocusNode nextFocus) {
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);  
-}
+  }
 
   Center conformbutton(){
     return Center(
