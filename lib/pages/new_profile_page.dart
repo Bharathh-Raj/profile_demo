@@ -29,18 +29,11 @@ class _NewProfileState extends State<NewProfile> {
   final FocusNode _ageFocus = FocusNode();
   final FocusNode _cityFocus = FocusNode();
   final FocusNode _dobFocus = FocusNode();
-
+  Color x=Colors.white;
   @override
   Widget build(BuildContext context) {
-
+    
     return Scaffold(
-      appBar: AppBar(
-          title: Text('New Profile'),
-          leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-              ),
-              onPressed: null)),
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -166,20 +159,26 @@ class _NewProfileState extends State<NewProfile> {
     ));
   }
 
-  GenderSelector _genselector() {
+  Widget _genselector() {
     String selectedGender = "female";
-    return GenderSelector(
-      onChanged: (gender) async {
-        setState(() {
-          if (gender == Gender.FEMALE) {
-            selectedGender = "female";
-            print('female');
-          } else {
-            selectedGender = "male";
-            print('male');
-          }
-        });
-      },
+    return Container(
+      color:x,
+      padding: const EdgeInsets.symmetric(vertical:10.0),
+      child: GenderSelector(
+        onChanged: (gender) async {
+          setState(() {
+            if (gender == Gender.FEMALE) {
+              selectedGender = "female";
+              x=Colors.pink;
+              print('female');
+            } else {
+              selectedGender = "male";
+              x=Colors.green;
+              print('male');
+            }
+          });
+        },
+      ),
     );
   }
 
