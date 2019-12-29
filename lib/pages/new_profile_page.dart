@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:gender_selector/gender_selector.dart';
+// import 'package:gender_selector/gender_selector.dart';
+import '../widgets/gender_selector.dart';
 
 class NewProfile extends StatefulWidget {
   @override
@@ -29,7 +30,7 @@ class _NewProfileState extends State<NewProfile> {
   final FocusNode _ageFocus = FocusNode();
   final FocusNode _cityFocus = FocusNode();
   final FocusNode _dobFocus = FocusNode();
-  Color x=Colors.white;
+  Color x=Colors.transparent;
   @override
   Widget build(BuildContext context) {
     
@@ -160,20 +161,22 @@ class _NewProfileState extends State<NewProfile> {
   }
 
   Widget _genselector() {
-    String selectedGender = "female";
+    var selectedGender;
     return Container(
-      color:x,
+      // color:x,
       padding: const EdgeInsets.symmetric(vertical:10.0),
       child: GenderSelector(
         onChanged: (gender) async {
           setState(() {
             if (gender == Gender.FEMALE) {
-              selectedGender = "female";
-              x=Colors.pink;
+              // selectedGender = "female";
+              selectedGender=Gender.FEMALE;
+              // x=Colors.pink;
               print('female');
             } else {
-              selectedGender = "male";
-              x=Colors.green;
+              // selectedGender = "male";
+              selectedGender=Gender.MALE;
+              // x=Colors.green;
               print('male');
             }
           });
