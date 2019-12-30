@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Profile_description extends StatelessWidget {
   @override
@@ -7,7 +6,7 @@ class Profile_description extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(icon: Icon(Icons.arrow_back),onPressed: (){Navigator.pop(context);},),
-        title: Text('Profile Description'),
+        title: const Text('Profile Description'),
       ),
       body: ListView(
         children: [
@@ -41,9 +40,11 @@ class Profile_description extends StatelessWidget {
 }
 
 class Rowinfo extends StatelessWidget {
-  String s1, s2;
-  Icon s;
+  final String s1, s2;
+  final Icon s;
+
   Rowinfo(this.s,this.s1, this.s2);
+  
   @override
   Widget build(BuildContext context) {
     return ListTile(

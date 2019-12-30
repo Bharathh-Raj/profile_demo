@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 // import 'package:gender_selector/gender_selector.dart';
 import '../widgets/gender_selector.dart';
 
@@ -10,17 +12,19 @@ class NewProfile extends StatefulWidget {
 
 class _NewProfileState extends State<NewProfile> {
 
-  final TextEditingController namecontroller = new TextEditingController();
+  final _firestore=Firestore.instance;
 
-  final TextEditingController desccontroller = new TextEditingController();
+  final TextEditingController namecontroller = TextEditingController();
 
-  final TextEditingController numcontroller = new TextEditingController();
+  final TextEditingController desccontroller = TextEditingController();
 
-  final TextEditingController agecontroller = new TextEditingController();
+  final TextEditingController numcontroller = TextEditingController();
 
-  final TextEditingController gendercontroller = new TextEditingController();
+  final TextEditingController agecontroller = TextEditingController();
 
-  final TextEditingController citycontroller = new TextEditingController();
+  final TextEditingController gendercontroller = TextEditingController();
+
+  final TextEditingController citycontroller = TextEditingController();
 
   DateTime selectedDate = DateTime.now();
 
@@ -75,7 +79,7 @@ class _NewProfileState extends State<NewProfile> {
             child: Stack(children: <Widget>[
               CircleAvatar(
                 radius: MediaQuery.of(context).size.shortestSide * 0.15,
-                child: Text('Picture Here'),
+                child: const Text('Picture Here'),
               ),
               Container(
                 height: MediaQuery.of(context).size.shortestSide * 0.3,
@@ -108,9 +112,10 @@ class _NewProfileState extends State<NewProfile> {
           child: TextFormField(
             controller: cont,
             textInputAction: TextInputAction.next,
-            onFieldSubmitted: (term) {
+            onFieldSubmitted: (String term) {
               _fieldFocusChange(context, current, next);
-              if (current == next) current.unfocus();
+              if (current == next) 
+                current.unfocus();
             },
             focusNode: current,
             decoration: InputDecoration(hintText: hint),
@@ -121,7 +126,7 @@ class _NewProfileState extends State<NewProfile> {
     ));
   }
 
-  _fieldFocusChange(
+  void _fieldFocusChange(
       BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
@@ -134,7 +139,7 @@ class _NewProfileState extends State<NewProfile> {
       children: <Widget>[
         Container(
           width: MediaQuery.of(context).size.width * (0.8 / 3),
-          child: Text('Date of Birth:'),
+          child: const Text('Date of Birth:'),
         ),
         Container(
           width: MediaQuery.of(context).size.width * (1.8 / 3),
@@ -150,9 +155,9 @@ class _NewProfileState extends State<NewProfile> {
             // },
             decoration: InputDecoration(
                 hintText: selectedDate.year.toString() +
-                    "-" +
+                    '-' +
                     selectedDate.month.toString() +
-                    "-" +
+                    '-' +
                     selectedDate.day.toString()),
           ),
         )
@@ -161,12 +166,12 @@ class _NewProfileState extends State<NewProfile> {
   }
 
   Widget _genselector() {
-    var selectedGender;
+    Gender selectedGender;
     return Container(
       // color:x,
       padding: const EdgeInsets.symmetric(vertical:10.0),
       child: GenderSelector(
-        onChanged: (gender) async {
+        onChanged: (Gender gender) async {
           setState(() {
             if (gender == Gender.FEMALE) {
               // selectedGender = "female";
@@ -189,8 +194,13 @@ class _NewProfileState extends State<NewProfile> {
     return Center(
         child: FlatButton(
       color: Colors.blue,
-      onPressed: () {},
-      child: Text('Add Profile'),
+      onPressed: () {
+        print('Database connection successfull');
+        _firestore.collection('test').add(<String,dynamic>{
+          'test_field':'hello from app',
+        });
+      },
+      child: const Text('Add Profile'),
     ));
   }
 

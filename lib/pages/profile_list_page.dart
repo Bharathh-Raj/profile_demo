@@ -11,10 +11,10 @@ class _ProfileListPageState extends State<ProfileListPage> {
     return Scaffold(
       body: Container(
           child: ListView.builder(
-        itemBuilder: (context, index) {
+        itemBuilder: (BuildContext context,int index) {
           return GestureDetector(
             child: Card(
-              margin: EdgeInsets.all(2),
+              margin:const EdgeInsets.all(2),
               child: ListTile(
                 title: Text('Title ' + index.toString()),
                 subtitle: Text('Subtitile ' + index.toString()),

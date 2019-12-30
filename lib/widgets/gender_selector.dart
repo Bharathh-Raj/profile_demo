@@ -8,8 +8,8 @@ class GenderSelector extends StatefulWidget {
 
   String maleimg = 'https://raw.githubusercontent.com/dhruvil2000/gender_selector_flutter/master/assets/male.png';
   String femaleimg = 'https://raw.githubusercontent.com/dhruvil2000/gender_selector_flutter/master/assets/female.png';
-  String maletxt = "Male";
-  String femaletxt = "Female";
+  String maletxt = 'Male';
+  String femaletxt = 'Female';
 
   EdgeInsetsGeometry padding;
   EdgeInsetsGeometry margin;
@@ -21,8 +21,8 @@ class GenderSelector extends StatefulWidget {
   GenderSelector({
     this.maleimg = 'https://raw.githubusercontent.com/dhruvil2000/gender_selector_flutter/master/assets/male.png',
     this.femaleimg = 'https://raw.githubusercontent.com/dhruvil2000/gender_selector_flutter/master/assets/female.png',
-    this.maletxt = "Male",
-    this.femaletxt = "Female",
+    this.maletxt = 'Male',
+    this.femaletxt = 'Female',
     this.padding = const EdgeInsets.all(0),
     this.margin = const EdgeInsets.all(0),
     this.selectedGender,
